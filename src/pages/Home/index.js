@@ -1,5 +1,10 @@
-import React from "react";
-import { View, Text } from "react-native";
+import React, { useState } from "react";
+import {
+  TouchableWithoutFeedback,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 
 import { LinearGradient } from "expo-linear-gradient";
 import StatusBarPage from "../../components/StatusBarPage";
@@ -20,40 +25,58 @@ import {
 import { Feather } from "@expo/vector-icons";
 
 export default function Home() {
+  const [input, setInput] = useState("");
+
+  function handleShortLink() {
+    alert("url digitada: " + input);
+  }
+
   return (
-    <LinearGradient
-      colors={["#1ddbb9", "#132742"]}
-      style={{ flex: 1, justifyContent: "center" }}
-    >
-      <StatusBarPage barStyle="light-content" backgroundColor="#1ddbb9" />
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <LinearGradient
+        colors={["#1ddbb9", "#132742"]}
+        style={{ flex: 1, justifyContent: "center" }}
+      >
+        <StatusBarPage barStyle="light-content" backgroundColor="#1ddbb9" />
 
-      <Menu />
+        <Menu />
 
-      <ContaninerLogo>
-        <Logo
-          source={require("../../assets/logo.png")}
-          resizeMode={"contain"}
-        />
-      </ContaninerLogo>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "android" ? "padding" : "position"}
+          enabled
+        >
+          <ContaninerLogo>
+            <Logo
+              source={require("../../assets/logo.png")}
+              resizeMode={"contain"}
+            />
+          </ContaninerLogo>
 
-      <ContainerContent>
-        <Title>Link</Title>
-        <Subtitle>Cole seu link para encurtar</Subtitle>
+          <ContainerContent>
+            <Title>Link</Title>
+            <Subtitle>Cole seu link para encurtar</Subtitle>
 
-        <ContainerInput>
-          <BoxIcon>
-            <Feather name={"link"} color="#fff" size={22} />
-          </BoxIcon>
-          <Input
-            placeholder="Cole seu link aqui ..."
-            placeholderTextColor="#fff"
-          />
-        </ContainerInput>
+            <ContainerInput>
+              <BoxIcon>
+                <Feather name={"link"} color="#fff" size={22} />
+              </BoxIcon>
+              <Input
+                placeholder="Cole seu link aqui ..."
+                placeholderTextColor="#fff"
+                autoCapitalize="none"
+                autoCorrect={false}
+                keyboardType="url"
+                value={input}
+                onChangeText={(text) => setInput(text)}
+              />
+            </ContainerInput>
 
-        <ButtonLink>
-          <ButtonLinkText>Gerar Link </ButtonLinkText>
-        </ButtonLink>
-      </ContainerContent>
-    </LinearGradient>
+            <ButtonLink onPress={handleShortLink}>
+              <ButtonLinkText>Gerar Link </ButtonLinkText>
+            </ButtonLink>
+          </ContainerContent>
+        </KeyboardAvoidingView>
+      </LinearGradient>
+    </TouchableWithoutFeedback>
   );
 }
