@@ -11,7 +11,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import StatusBarPage from "../../components/StatusBarPage";
 import Menu from "../../components/Menu";
 import ModalLink from "../../components/ModalLink";
-
+// 37:46
 import {
   BoxIcon,
   ButtonLink,
