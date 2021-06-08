@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import { Plataform, PlatformColor } from "react-native";
+import { Platform } from "react-native";
 
 export const ContaninerLogo = styled.View`
   align-items: center;
